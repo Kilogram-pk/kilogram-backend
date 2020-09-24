@@ -19,9 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f63fc06-5202-493f-ac79-3645d6b3b05b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/mysql/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-    </list>
+    <list default="true" id="6f63fc06-5202-493f-ac79-3645d6b3b05b" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -164,6 +162,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/mysql" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
@@ -178,7 +177,7 @@
       <updated>1600946056395</updated>
       <workItem from="1600946057441" duration="282000" />
       <workItem from="1600946374424" duration="3073000" />
-      <workItem from="1600951348169" duration="204000" />
+      <workItem from="1600951348169" duration="256000" />
     </task>
     <servers />
   </component>
