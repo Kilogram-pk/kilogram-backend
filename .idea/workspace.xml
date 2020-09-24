@@ -21,7 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6f63fc06-5202-493f-ac79-3645d6b3b05b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/redis/appendonly.aof" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,7 +179,7 @@
       <updated>1600946056395</updated>
       <workItem from="1600946057441" duration="282000" />
       <workItem from="1600946374424" duration="3073000" />
-      <workItem from="1600951348169" duration="439000" />
+      <workItem from="1600951348169" duration="728000" />
     </task>
     <servers />
   </component>
@@ -199,6 +198,10 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
+    <state x="371" y="182" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1600952295937">
+      <screen x="0" y="23" width="1280" height="701" />
+    </state>
+    <state x="371" y="182" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1280.701@0.23.1280.701" timestamp="1600952295937" />
     <state width="500" height="445" key="SwitcherDM" timestamp="1600949568729">
       <screen x="0" y="23" width="1280" height="701" />
     </state>
