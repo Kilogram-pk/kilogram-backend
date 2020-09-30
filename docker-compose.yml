@@ -35,7 +35,7 @@ services:
     restart: unless-stopped
     tty: true
     environment:
-      MYSQL_USER: root
+      MYSQL_USER: hasnat
       MYSQL_PASSWORD: 123
       MYSQL_DATABASE: kilogram
       MYSQL_ROOT_PASSWORD: 123
