@@ -8,4 +8,5 @@ RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
     &&  docker-php-ext-enable redis
 
-RUN chmod -R 775 storage
+ADD . /var/www/html
+RUN chown -R www-data:www-data /var/www/html
