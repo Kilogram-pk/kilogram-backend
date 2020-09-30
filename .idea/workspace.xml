@@ -20,15 +20,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f63fc06-5202-493f-ac79-3645d6b3b05b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.prod.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/kilogram.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/kilogram.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/src/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/services.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/services.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/src/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -144,6 +152,17 @@
       <path value="$PROJECT_DIR$/src/vendor/guzzlehttp/psr7" />
       <path value="$PROJECT_DIR$/src/vendor/guzzlehttp/promises" />
       <path value="$PROJECT_DIR$/src/vendor/fzaninotto/faker" />
+      <path value="$PROJECT_DIR$/src/vendor/league/oauth1-client" />
+      <path value="$PROJECT_DIR$/src/vendor/laravel/socialite" />
+      <path value="$PROJECT_DIR$/src/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/src/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/src/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/src/vendor/justinrainbow/json-schema" />
+      <path value="$PROJECT_DIR$/src/vendor/barryvdh/reflection-docblock" />
+      <path value="$PROJECT_DIR$/src/vendor/barryvdh/laravel-ide-helper" />
+      <path value="$PROJECT_DIR$/src/vendor/seld/phar-utils" />
+      <path value="$PROJECT_DIR$/src/vendor/seld/jsonlint" />
     </include_path>
   </component>
   <component name="ProjectId" id="1hxHvtdlbTxkRKYyrQP0oB3TgJu" />
@@ -164,6 +183,9 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/mysql" />
       <recent name="$PROJECT_DIR$" />
@@ -180,7 +202,13 @@
       <updated>1600946056395</updated>
       <workItem from="1600946057441" duration="282000" />
       <workItem from="1600946374424" duration="3073000" />
-      <workItem from="1600951348169" duration="997000" />
+      <workItem from="1600951348169" duration="1308000" />
+      <workItem from="1601013697646" duration="1298000" />
+      <workItem from="1601033616205" duration="41000" />
+      <workItem from="1601033673967" duration="1522000" />
+      <workItem from="1601368015018" duration="3561000" />
+      <workItem from="1601447586705" duration="420000" />
+      <workItem from="1601451413510" duration="527000" />
     </task>
     <servers />
   </component>
@@ -197,19 +225,20 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="371" y="182" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1600952295937">
       <screen x="0" y="23" width="1280" height="701" />
     </state>
     <state x="371" y="182" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1280.701@0.23.1280.701" timestamp="1600952295937" />
-    <state width="500" height="445" key="SwitcherDM" timestamp="1600949568729">
+    <state width="500" height="445" key="SwitcherDM" timestamp="1601376122765">
       <screen x="0" y="23" width="1280" height="701" />
     </state>
-    <state width="500" height="445" key="SwitcherDM/0.23.1280.701@0.23.1280.701" timestamp="1600949568729" />
-    <state x="305" y="48" width="670" height="676" key="search.everywhere.popup" timestamp="1600950384911">
+    <state width="500" height="445" key="SwitcherDM/0.23.1280.701@0.23.1280.701" timestamp="1601376122765" />
+    <state x="305" y="48" width="670" height="676" key="search.everywhere.popup" timestamp="1601371327333">
       <screen x="0" y="23" width="1280" height="701" />
     </state>
-    <state x="305" y="48" width="670" height="676" key="search.everywhere.popup/0.23.1280.701@0.23.1280.701" timestamp="1600950384911" />
+    <state x="305" y="48" width="670" height="676" key="search.everywhere.popup/0.23.1280.701@0.23.1280.701" timestamp="1601371327333" />
   </component>
 </project>
