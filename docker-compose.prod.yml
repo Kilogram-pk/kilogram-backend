@@ -55,13 +55,12 @@ services:
     container_name: kilogram_certbot
     networks:
       - kilogram
-    command: certonly --webroot --webroot-path=/var/www/html --email sammy@example.com --agree-tos --no-eff-email --staging -d hasnat.tk -d www.hasnat.tk
+    command: certonly --webroot --webroot-path=/var/www/certbot --email hasnat@hasnat.tk --agree-tos --no-eff-email --staging -d hasnat.tk -d www.hasnat.tk
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/logs:/var/log/letsencrypt
       - ./certbot/data:/var/www/certbot
-    depends_on:
-      - nginx
+
   composer:
     image: "composer:latest"
     container_name: lara_composer
