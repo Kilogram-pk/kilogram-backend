@@ -20,8 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f63fc06-5202-493f-ac79-3645d6b3b05b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.prod.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.prod.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx/default.prod.conf" beforeDir="false" afterPath="$PROJECT_DIR$/nginx/default.prod.conf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +204,7 @@
       <workItem from="1601451413510" duration="2492000" />
       <workItem from="1601476289134" duration="354000" />
       <workItem from="1601538838504" duration="320000" />
-      <workItem from="1601543821982" duration="3304000" />
+      <workItem from="1601543821982" duration="3601000" />
     </task>
     <servers />
   </component>
@@ -227,10 +228,10 @@
       <screen x="0" y="23" width="1280" height="701" />
     </state>
     <state x="371" y="182" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1280.701@0.23.1280.701" timestamp="1600952295937" />
-    <state width="500" height="445" key="SwitcherDM" timestamp="1601552100811">
+    <state width="500" height="445" key="SwitcherDM" timestamp="1601555236602">
       <screen x="0" y="23" width="1280" height="701" />
     </state>
-    <state width="500" height="445" key="SwitcherDM/0.23.1280.701@0.23.1280.701" timestamp="1601552100811" />
+    <state width="500" height="445" key="SwitcherDM/0.23.1280.701@0.23.1280.701" timestamp="1601555236602" />
     <state width="500" height="447" key="SwitcherDM/0.23.1280.703@0.23.1280.703" timestamp="1601458107278" />
     <state x="305" y="48" width="670" height="676" key="search.everywhere.popup" timestamp="1601549593935">
       <screen x="0" y="23" width="1280" height="701" />
