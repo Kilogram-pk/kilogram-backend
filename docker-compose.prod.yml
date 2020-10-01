@@ -9,7 +9,7 @@ services:
     container_name: kilogram_nginx
     volumes:
       - ./src:/var/www/html:cached
-      - ./nginx/default.prod.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
       - ./certbot/conf:/etc/nginx/ssl
       - ./certbot/data:/var/www/certbot
     ports:
