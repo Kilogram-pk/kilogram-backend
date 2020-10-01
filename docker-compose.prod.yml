@@ -52,7 +52,7 @@ services:
 
   certbot:
     image: certbot/certbot:latest
-    command: certonly --webroot --webroot-path=/var/www/html/certbot --email me@westsidecoders.net --agree-tos --no-eff-email -d kilogram.westsidecoders.net -d www.kilogram.westsidecoders.net
+    command: certonly --webroot --webroot-path=/var/www/certbot --email me@westsidecoders.net --agree-tos --no-eff-email -d kilogram.westsidecoders.net -d www.kilogram.westsidecoders.net
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/logs:/var/log/letsencrypt
