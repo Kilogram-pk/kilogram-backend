@@ -52,7 +52,10 @@ services:
 
   certbot:
     image: "certbot/certbot:latest"
-    command: certonly --webroot --webroot-path=/var/www/html --email sammy@example.com --agree-tos --no-eff-email --staging -d kilogram.westsidecoders.net
+    container_name: kilogram_certbot
+    networks:
+      - kilogram
+    command: certonly --webroot --webroot-path=/var/www/html --email sammy@example.com --agree-tos --no-eff-email --staging -d hasnat.tk -d www.hasnat.tk
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/logs:/var/log/letsencrypt
