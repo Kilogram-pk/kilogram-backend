@@ -14,7 +14,6 @@ services:
       - ./certbot/www:/var/www/certbot
     ports:
       - "80:80"
-      - "443:443"
     depends_on:
       - php
       - mysql
@@ -50,14 +49,6 @@ services:
       - ./mysql:/var/lib/mysql
     networks:
       - kilogram
-
-  certbot:
-    image: "certbot/certbot:latest"
-    networks:
-      - kilogram
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
 
   composer:
     image: "composer:latest"
