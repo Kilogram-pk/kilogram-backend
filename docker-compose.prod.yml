@@ -52,15 +52,11 @@ services:
 
   certbot:
     image: "certbot/certbot:latest"
-    container_name: kilogram_certbot
     networks:
       - kilogram
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-    depends_on:
-      - nginx
-    command: certonly --webroot --webroot-path=/var/www/html --email hasnat@hasnat.tk --agree-tos --no-eff-email --staging -d hasnat.tk  -d www.hasnat.tk
 
   composer:
     image: "composer:latest"
