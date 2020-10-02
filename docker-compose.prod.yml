@@ -56,9 +56,9 @@ services:
     networks:
       - kilogram
     volumes:
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - web-root:/var/www/html
+      - ./certbot-etc:/etc/letsencrypt
+      - ./certbot-var:/var/lib/letsencrypt
+      - ./web-root:/var/www/html
     depends_on:
       - nginx
     command: certonly --webroot --webroot-path=/var/www/html --email hasnat@hasnat.tk --agree-tos --no-eff-email --staging -d hasnat.tk  -d www.hasnat.tk
