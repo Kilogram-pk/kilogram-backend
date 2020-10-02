@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(hasnat.tk www.hasnat.tk)
+domains=(kilogram.westsidecoders.net www.kilogram.westsidecoders.net)
 rsa_key_size=4096
 data_path="./certbot"
 email="hasnatinter@yandex.com" # Adding a valid address is strongly recommended
