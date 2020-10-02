@@ -10,8 +10,8 @@ services:
     volumes:
       - ./src:/var/www/html
       - ./nginx/default.prod.conf:/etc/nginx/conf.d/default.conf
-      - ./certbot-etc:/etc/letsencrypt
-      - ./certbot-var:/var/lib/letsencrypt
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     ports:
       - "80:80"
     depends_on:
@@ -56,9 +56,8 @@ services:
     networks:
       - kilogram
     volumes:
-      - ./certbot-etc:/etc/letsencrypt
-      - ./certbot-var:/var/lib/letsencrypt
-      - ./web-root:/var/www/html
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     depends_on:
       - nginx
     command: certonly --webroot --webroot-path=/var/www/html --email hasnat@hasnat.tk --agree-tos --no-eff-email --staging -d hasnat.tk  -d www.hasnat.tk
