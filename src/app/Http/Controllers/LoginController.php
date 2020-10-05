@@ -21,11 +21,13 @@ class LoginController extends Controller
     /**
      * Obtain the user information from Facebook.
      *
+     * @param string $provider
+     * @param string $token
      * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback()
+    public function handleProviderCallback(string $provider, Request $request)
     {
-        $user_facebook = Socialite::driver('facebook')->stateless()->user();
+        $user_facebook = Socialite::driver($provider)->userFromToken($request->input('token'));
         $user = User::createOrGetSocialUser("facebook", $user_facebook);
         return response([
             $user
