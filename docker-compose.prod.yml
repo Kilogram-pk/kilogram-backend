@@ -28,7 +28,7 @@ services:
     volumes:
       - ./src:/var/www/html
     ports:
-      - "9001:9000"
+      - "9000:9000"
     container_name: kilogram_php
     networks:
       - kilogram
