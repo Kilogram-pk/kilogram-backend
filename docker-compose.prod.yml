@@ -13,7 +13,7 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
       - /ssl/ssl:/etc/ssl
     ports:
-      - "80:80"
+      - "82:80"
       - "443:443"
     depends_on:
       - php
