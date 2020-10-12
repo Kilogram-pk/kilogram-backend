@@ -1,0 +1,672 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register",
+                "description": "Register user by either email/phone, username, password",
+                "operationId": "authRegister",
+                "requestBody": {
+                    "description": "Pass user credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@mail.com"
+                                    },
+                                    "phone": {
+                                        "type": "integer",
+                                        "format": "string",
+                                        "example": "+923215508055"
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "hasnatsafder"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "PassWord123457890"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success or success with email verification sent",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "": {
+                                            "type": "object",
+                                            "example": {
+                                                "saved": true,
+                                                "message": "user->email ? A key has been sent to your email to verify : User created successfully"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Wrong input response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/social-login/facebook": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Social login",
+                "description": "Register user from facebook token",
+                "operationId": "authSocialLogin",
+                "requestBody": {
+                    "description": "Pass facebook token",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "token"
+                                ],
+                                "properties": {
+                                    "token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "EAAPTe5h66KgBAMBC34mi9fZCgVH5SLccUM15TC4EXHZBQhqHgVkTha13WLOOgdHFV1IjwEQLZBvDJDDYSnztdBtoyYv6akisfB1rB4EY6LtcWZBFLomOaNM9xQWDaI6DHwfCvQaPiK41Yz7GNJhubAIKYM68ZAR88mJO0D2ZBCZCDxkdOpPISbcSLI4ZBHTbGYQ3AaM5U8t6xYENTzfUSzlCWBz8IlbUb5EZD"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully added social user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "": {
+                                            "type": "object",
+                                            "example": {
+                                                "access_token": "xyz",
+                                                "token_type": "Bearer",
+                                                "refresh_token": null,
+                                                "expires_at": "2020-10-09 11:42:46"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User not found for this token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": false,
+                                                "message": "User not found for this token"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/verify-code": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Verify code",
+                "description": "Verify email code",
+                "operationId": "authVerifyCode",
+                "requestBody": {
+                    "description": "Pass email and Verification key",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "verification_key"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "test@kilogram.ga"
+                                    },
+                                    "verification_key": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "985654"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Verification successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": true,
+                                                "message": "Verification successful"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User not found for this token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": false,
+                                                "message": "Verification code not found"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/renew-code": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Renew verifcation code",
+                "description": "Renew email code",
+                "operationId": "authRenewCode",
+                "requestBody": {
+                    "description": "Pass email",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "test@kilogram.ga"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Verification code renewed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": true,
+                                                "message": "Verification code renewed"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "User already verified",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": false,
+                                                "message": "User has already been verified"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User not found for this email",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": false,
+                                                "message": "User not found"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login user",
+                "description": "Login user to recieve access token",
+                "operationId": "authLogin",
+                "requestBody": {
+                    "description": "Pass user's email/username/phone and password",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "user",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "user": {
+                                        "type": "string",
+                                        "format": "sting",
+                                        "example": "test@kilogram.ga"
+                                    },
+                                    "password": {
+                                        "type": "password",
+                                        "format": "password",
+                                        "example": "Pass123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "": {
+                                            "type": "object",
+                                            "example": {
+                                                "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMDJkNmQyODYxMDY4ZDNjZDgwM2I5Njc2ZjhmMDZiMTkxYjhkMGM1YjhlODhlNWYxZTA2NjMwNTRhZGQ2NmRhZmU4MDViNDg4NDY1NDBjMGMiLCJpYXQiOjE2MDIyNDg0OTMsIm5iZiI6MTYwMjI0ODQ5MywiZXhwIjoxNjMzNzg0NDkzLCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.vxETPZTyJJ797BXJqmPsMjq3js7ru4yhbPwIG95cQx230L1H3ozsQqFYAsHdI26s1psrtKAin3_4OAzXoGGZ35Yor5yXfHul1Fymr401TgLXoHUuwpwIKeuueX4dkrutLX55xZFFbohHa_prVrJjTX3yB9DviA7q0KnFu1DGk---OlCedao8dSGRXTAkv4FQe8RcPe2U9BNzs9G843Dj06hVBhZYlAt2keMzAsWjU9K_29wiwGE0_B2tdP42Ms6-8JGt5QWHiG4fPVUIlgAH1n94wdHbV2D1WVVhM7Cpkl6efIjP4of4utg9vx7ocs2q5dzdFf7a7LYR1m2wsoXkABeo7AtO6oqOeETBox90nsxm6MREkTKjEaN6tG9Cyp5uxnlywsllIXMhWEGhLv8jOhNwsOhJ31QYmKsiPjknIJUgVZVFrJ3Ar39huCZCVSe9Z4wvecHM6yHRO-z3c8ZoDA_p9lSvSEf_KjLMa4QZxI2Z3hrvoN7Jrvb-XBKmXvndooLXKj8FUo0a9ACFdUdDmwUkKc9uV2o7ULpIfEP2kwZksPOM08qEDcfvYSO9jCuXNlyhtfO0YI17pazdfRWUHsR1k8bOQUn4-nbhK-0LTeX4kbfH1vwD0Veugsa1KWi5SWw8-f5aIOr93W-nglaIulwl7moxZpIhfZwlXAq0Ncc",
+                                                "token_type": "Bearer",
+                                                "refresh_token": null,
+                                                "expires_at": "2020-10-09 13:01:33"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "User already verified",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": false,
+                                                "message": "User has already been verified"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User already verified",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": false,
+                                                "message": "User has already been verified"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/forgot-password": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Forgot password email",
+                "description": "Request an email to reset password",
+                "operationId": "authForgotPassword",
+                "requestBody": {
+                    "description": "Pass user's email",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "test@kilogram.ga"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successfull",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": true,
+                                                "message": "An reset email link has been sent"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "User not verified yet",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": false,
+                                                "message": "User not verified yet"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": false,
+                                                "message": "User not found"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/validate_token/{token}": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Validate token",
+                "description": "Validate a reset token",
+                "operationId": "authValidateToken",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "description": "Token",
+                        "required": true,
+                        "example": "1nOsTmJM4Ne7d8cqyG5aeJAPh49oSC7cj3OYmiC4fyCQhpxg3TEwD6ZJnmji"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Valid token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": true,
+                                                "message": "Valid token"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Token not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": false,
+                                                "message": "Token not found"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/reset-password": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Reset Password",
+                "description": "Reset to a new password",
+                "operationId": "authResetPassword",
+                "requestBody": {
+                    "description": "Pass user's email, token, password and password_confirmation",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "token",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "test@kilogram.ga"
+                                    },
+                                    "token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1nOsTmJM4Ne7d8cqyG5aeJAPh49oSC7cj3OYmiC4fyCQhpxg3TEwD6ZJnmji"
+                                    },
+                                    "password": {
+                                        "type": "password",
+                                        "format": "password",
+                                        "example": "123456"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "password",
+                                        "format": "password",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Password updated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": true,
+                                                "message": "Password updated"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Token not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": false,
+                                                "message": "Token not found"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}

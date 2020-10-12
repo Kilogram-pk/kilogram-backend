@@ -3,10 +3,14 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Mail;
+use Laravel\Passport\HasApiTokens;
+use App\Mail\VerificationCodeMail;
 
 /**
  * App\Models\User
@@ -37,10 +41,26 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereSocialIdentifier($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $phone
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
+ * @property-read int|null $clients_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
+ * @property-read int|null $tokens_count
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhone($value)
+ * @property string $username
+ * @property \Illuminate\Support\Carbon|null $verified_at
+ * @property int|null $verification_key
+ * @property int|null $verification_expire
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUsername($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVerificationExpire($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVerificationKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVerifiedAt($value)
+ * @property string|null $verification_created
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereVerificationCreated($value)
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -49,6 +69,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'phone',
+        'username',
         'email',
         'password',
         'social_id',
@@ -71,7 +93,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'verified_at' => 'datetime',
+        'verification_created' => 'datetime',
     ];
 
     /**
@@ -84,15 +107,39 @@ class User extends Authenticatable
         $user_app = User::where(["social_id" => $social_data->id, 'social_identifier' => $social_identifier])->first();
         if (!$user_app) {
             $user = new User;
-            $user->email = $social_data->email;
+            $user->email = $social_data->email ?? "";
             $user->name = $social_data->name;
-            $user->email_verified_at = Carbon::now();
+            $user->username = $social_data->name ?? "";
+            $user->phone = $social_data->phone ?? "";
             $user->social_id = $social_data->id;
             $user->social_identifier = $social_identifier;
-            $user->password = md5(rand(1,10000));
+            $user->password = rand(1,10000);
             $user->save();
             return $user;
         }
         return $user_app;
+    }
+
+    /**
+     * Make a new key for user
+     * @return array
+     */
+    function makeKey() {
+        if ($this->verification_created && (Carbon::now() > $this->verification_created->addMinutes(2))) {
+            $this->verification_key = rand(000000, 999999);
+            $this->verification_created = Carbon::now();
+            $this->save();
+            Mail::to($this->email)->queue(new VerificationCodeMail($this->email, $this->verification_key));
+            return [
+                'saved' => true,
+                'message' => "A new key was generated"
+            ];
+        }
+        else {
+            return [
+                'saved' => 'false',
+                'message' => 'previous key has not expired, wait 2 minutes'
+            ];
+        }
     }
 }

@@ -34,5 +34,11 @@ return [
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
         'redirect' => env('FACEBOOK_REDIRECT_URI')
     ],
+    'mailjet'   => [
+        'key'     => env('MAILJET_APIKEY'),
+        'secret'  => env('MAILJET_APISECRET'),
+        'call'    => true, // can be set to false to mock requests
+        'options' => ['version' => 'v3.1'], // additional Mailjet options, see https://github.com/mailjet/mailjet-apiv3-php#options
+    ],
 
 ];
