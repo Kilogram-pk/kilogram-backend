@@ -39,10 +39,15 @@
                                         "format": "string",
                                         "example": "hasnatsafder"
                                     },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Hasnat Safder"
+                                    },
                                     "password": {
                                         "type": "string",
                                         "format": "password",
-                                        "example": "PassWord123457890"
+                                        "example": "123456"
                                     }
                                 },
                                 "type": "object"

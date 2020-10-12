@@ -21,7 +21,8 @@ class AuthController extends Controller
      *       @OA\Property(property="email", type="string", format="email", example="user@mail.com"),
      *       @OA\Property(property="phone", type="integer", format="string", example="+923215508055"),
      *       @OA\Property(property="username", type="string", format="string", example="hasnatsafder"),
-     *       @OA\Property(property="password", type="string", format="password", example="PassWord123457890"),
+     *       @OA\Property(property="name", type="string", format="string", example="Hasnat Safder"),
+     *       @OA\Property(property="password", type="string", format="password", example="123456"),
      *    ),
      * ),
      *   @OA\Response(
