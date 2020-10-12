@@ -28,7 +28,7 @@ class UserObserver
      */
     public function created(User $user)
     {
-        if ($user->email && $user->isDirty('email')) {
+        if ($user->email) {
             $user->makeKey();
         }
         else {
