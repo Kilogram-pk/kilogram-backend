@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\TestLog;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,7 +25,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->job(new TestLog())->everyMinute();
+        $schedule->command('queue:work --tries=3')
+            ->cron('* * * * * *')
+            ->withoutOverlapping();
     }
 
     /**

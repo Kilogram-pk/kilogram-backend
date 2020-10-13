@@ -8,3 +8,7 @@ RUN pecl install -o -f redis \
 
 ADD . /var/www/html
 RUN chown -R www-data:www-data /var/www/html
+
+COPY crontab /etc/crontabs/root
+
+CMD ["crond", "-f"]
