@@ -19,6 +19,9 @@ class UserObserver
         if ($user->isDirty('password')) {
             $user->password = Hash::make($user->password);
         }
+        if (!$user->password) {
+            $user->password = Hash::make(rand(1,10000));
+        }
     }
     /**
      * Handle the user "created" event.

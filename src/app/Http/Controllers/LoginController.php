@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ResetPasswordMail;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -16,31 +17,57 @@ use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
+
     /**
-     * Redirect the user to the Facebook authentication page.
+     * Register using email
+     * @param Request $request
+     * @return Response
+     */
+    public function register(Request $request) {
+        $request->validate([
+            'email' => 'required_without:phone|email|max:255|unique:users',
+            'phone' => 'required_without:email|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:255|unique:users',
+        ]);
+        $user = new User;
+        $user->email = $request->input('email') ?? null;
+        $user->phone = $request->input('phone') ?? null;
+        $user->save();
+        return response([
+            'saved' => true,
+            'message' => $user->email ? "A key has been sent to your email to verify" : "User created successfully"
+        ]);
+    }
+
+    /**
+     * Register a user's additional info
      *
      * @param Request $request
      * @return Response
      */
-    public function register(Request $request)
+    public function registerInfo(Request $request)
     {
         $request->validate([
-            'email' => 'required_without:phone|email|max:255|unique:users',
-            'phone' => 'required_without:email|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:255|unique:users',
+            'user' => 'required|min:6|max:255',
             'password' => 'required|min:6|max:255',
             'name' => 'required|min:6|max:255',
             'username' => 'required|min:6|max:255|unique:users,username',
         ]);
-        $user = new User;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
+        $user = User::where(['email' => $request->input('user')])->orWhere(['phone' => $request->input('user')])->first();
+        // if user not found
+        if (!$user) {
+            return response([
+                'error' => true,
+                'message' => "User not found"
+            ], 401);
+        }
+
         $user->password = $request->password;
         $user->username = $request->username;
         $user->name = $request->name;
-        $user->saveOrFail();
+        $user->save();
         return response([
             'saved' => true,
-            'message' => $user->email ? "A key has been sent to your email to verify" : "User created successfully"
+            'message' => "Data added successfully"
         ]);
     }
 
@@ -304,6 +331,35 @@ class LoginController extends Controller
             'success' => false,
             'message' => 'Token not found'
         ], 404);
+    }
+
+    /**
+     * Check availability of value
+     * @param string $key
+     * @param string $value
+     * @return Response
+     */
+    public function checkAvailability(string $key, string $value) {
+        if ($key == "phone" || $key == "email" || $key == "username") {
+            $user = User::where([$key => $value])->first();
+            if ($user) {
+                return response([
+                    'success' => false,
+                    'message' => 'Already in use'
+                ], 401);
+            }
+            else {
+                return response([
+                    'success' => false,
+                    'message' => 'Available to use'
+                ], 202);
+            }
+        } else {
+            return response([
+                'success' => false,
+                'message' => 'Key can only be phone, email and username'
+            ], 422);
+        }
     }
 
     /**

@@ -10,16 +10,52 @@ class AuthController extends Controller
      * @OA\Post(
      * path="/api/auth/register",
      * summary="Register",
-     * description="Register user by either email/phone, username, password",
+     * description="Register user by either email/phone",
      * operationId="authRegister",
      * tags={"Auth"},
      * @OA\RequestBody(
      *    required=true,
      *    description="Pass user credentials",
      *    @OA\JsonContent(
-     *       required={"username","password"},
+     *       required={"email","phone"},
      *       @OA\Property(property="email", type="string", format="email", example="user@mail.com"),
      *       @OA\Property(property="phone", type="integer", format="string", example="+923215508055"),
+     *    ),
+     * ),
+     *   @OA\Response(
+     *     response=200,
+     *     description="Success or success with email verification sent",
+     *     @OA\JsonContent(
+     *        @OA\Property(property="", type="object", example={
+                "saved": true,
+                "message": "user->email ? A key has been sent to your email to verify : User created successfully"
+                }),
+     *     )
+     *  ),
+     *
+     * @OA\Response(
+     *    response=422,
+     *    description="Wrong input response",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="The given data was invalid.")
+     *        )
+     *     )
+     * )
+     */
+
+    /**
+     * @OA\Post(
+     * path="/api/auth/register-info",
+     * summary="Register user info",
+     * description="Register user info for name, username, password",
+     * operationId="authRegisterInfo",
+     * tags={"Auth"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Pass user credentials, for param user send either phone or email of user",
+     *    @OA\JsonContent(
+     *       required={"username","password", "user"},
+     *       @OA\Property(property="user", type="string", format="string", example="test@kilogram.ga"),
      *       @OA\Property(property="username", type="string", format="string", example="hasnatsafder"),
      *       @OA\Property(property="name", type="string", format="string", example="Hasnat Safder"),
      *       @OA\Property(property="password", type="string", format="password", example="123456"),
@@ -31,10 +67,22 @@ class AuthController extends Controller
      *     @OA\JsonContent(
      *        @OA\Property(property="", type="object", example={
                                                     "saved": true,
-                                                    "message": "user->email ? A key has been sent to your email to verify : User created successfully"
+                                                    "message": "Data added successfully"
                                                     }),
      *     )
      *  ),
+     *
+     * @OA\Response(
+     *    response=401,
+     *    description="User not found for this email",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="object", example={
+                    "success": false,
+                    "message": "User not found"
+                    })
+     *        )
+     *     )
+     * )
      *
      * @OA\Response(
      *    response=422,
@@ -357,6 +405,62 @@ class AuthController extends Controller
                 })
      *        )
      *     )
+     * )
+     */
+
+    /**
+     * @OA\Get(
+     * path="/api/auth/check-availability/{key}/{value}",
+     * summary="Check for availability",
+     * description="Check for availability of username, email or phone",
+     * operationId="checkAvailability",
+     * tags={"Auth"},
+     * @OA\Parameter (
+     *    description="key",
+     *    in="path",
+     *    name="key",
+     *    required=true,
+     *    example="email",
+     * ),
+     * @OA\Parameter (
+     *    description="value",
+     *    in="path",
+     *    name="value",
+     *    required=true,
+     *    example="test@kilogram.ga",
+     * ),
+     *   @OA\Response(
+     *     response=202,
+     *     description="Available",
+     *     @OA\JsonContent(
+     *        @OA\Property(property="", type="object", example={
+                "success": true,
+                "message": "Available to use"
+                }),
+     *     )
+     *  ),
+     *
+     * @OA\Response(
+     *    response=422,
+     *    description="Key can only be phone, email and username",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="object", example={
+                "success": false,
+                "message": "Key can only be phone, email and username"
+                })
+     *        )
+     *   ),
+     * @OA\Response(
+     *    response=401,
+     *    description="Already in use so not available",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="object", example={
+                "success": false,
+                "message": "Already in use"
+                })
+     *        )
+     *      ),
+     *  ),
      * )
      */
 }

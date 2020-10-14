@@ -24,8 +24,10 @@ Route::post('/auth/login', [LoginController::class, 'login']);
 Route::post('/auth/verify-code', [LoginController::class, 'verifyCode']);
 Route::post('/auth/renew-code', [LoginController::class, 'renewCode']);
 Route::post('/auth/register/', [LoginController::class, 'register']);
+Route::post('/auth/register-info/', [LoginController::class, 'registerInfo']);
 Route::post('/auth/forgot-password', [LoginController::class, 'forgotPassword']);
 Route::get('/auth/validate_token/{token}', [LoginController::class, 'validateToken']);
 Route::post('/auth/reset-password', [LoginController::class, 'resetPassword']);
+Route::get('/auth/check-availability/{key}/{value}', [LoginController::class, 'checkAvailability']);
 
 Route::apiResource('user', UserController::class)->middleware('auth:api');;

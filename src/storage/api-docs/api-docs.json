@@ -11,7 +11,7 @@
                     "Auth"
                 ],
                 "summary": "Register",
-                "description": "Register user by either email/phone, username, password",
+                "description": "Register user by either email/phone",
                 "operationId": "authRegister",
                 "requestBody": {
                     "description": "Pass user credentials",
@@ -20,8 +20,8 @@
                         "application/json": {
                             "schema": {
                                 "required": [
-                                    "username",
-                                    "password"
+                                    "email",
+                                    "phone"
                                 ],
                                 "properties": {
                                     "email": {
@@ -33,21 +33,6 @@
                                         "type": "integer",
                                         "format": "string",
                                         "example": "+923215508055"
-                                    },
-                                    "username": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "hasnatsafder"
-                                    },
-                                    "name": {
-                                        "type": "string",
-                                        "format": "string",
-                                        "example": "Hasnat Safder"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "format": "password",
-                                        "example": "123456"
                                     }
                                 },
                                 "type": "object"
@@ -84,6 +69,94 @@
                                         "message": {
                                             "type": "string",
                                             "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/register-info": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register user info",
+                "description": "Register user info for name, username, password",
+                "operationId": "authRegisterInfo",
+                "requestBody": {
+                    "description": "Pass user credentials, for param user send either phone or email of user",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "password",
+                                    "user"
+                                ],
+                                "properties": {
+                                    "user": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "test@kilogram.ga"
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "hasnatsafder"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "Hasnat Safder"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success or success with email verification sent",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "": {
+                                            "type": "object",
+                                            "example": {
+                                                "saved": true,
+                                                "message": "Data added successfully"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "User not found for this email",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": false,
+                                                "message": "User not found"
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -665,6 +738,111 @@
                                     "type": "object"
                                 }
                             }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/check-availability/{key}/{value}": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Check for availability",
+                "description": "Check for availability of username, email or phone",
+                "operationId": "checkAvailability",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "path",
+                        "description": "key",
+                        "required": true,
+                        "example": "email"
+                    },
+                    {
+                        "name": "value",
+                        "in": "path",
+                        "description": "value",
+                        "required": true,
+                        "example": "test@kilogram.ga"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Available",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": true,
+                                                "message": "Available to use"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Key can only be phone, email and username",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": false,
+                                                "message": "Key can only be phone, email and username"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Already in use so not available",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "object",
+                                            "example": {
+                                                "success": false,
+                                                "message": "Already in use"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "responses": {
+            "422": {
+                "description": "Wrong input response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "example": "The given data was invalid."
+                                }
+                            },
+                            "type": "object"
                         }
                     }
                 }
