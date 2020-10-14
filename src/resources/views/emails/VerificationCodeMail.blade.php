@@ -113,7 +113,7 @@
                                                     alt="" class="CToWUd" width="77" height="30"><br></div>
                                             <div style="height:10px"></div>
                                             <div style="color:#abadae;font-size:11px;margin:0 auto 5px auto">©
-                                                Kilogram. Loragram Inccc., 117 Bahria town, Rawalpindi, Punjab 44000<br>
+                                                Kilogram. Loragram Inc., 117 Bahria town, Rawalpindi, Punjab 44000<br>
                                             </div>
                                             <div style="color:#abadae;font-size:11px;margin:0 auto 5px auto">This
                                                 message was sent to <a style="color:#abadae;text-decoration:underline">{{$email}}</a>.<br>
