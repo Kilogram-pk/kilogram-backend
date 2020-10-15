@@ -29,5 +29,6 @@ Route::post('/auth/forgot-password', [LoginController::class, 'forgotPassword'])
 Route::get('/auth/validate_token/{token}', [LoginController::class, 'validateToken']);
 Route::post('/auth/reset-password', [LoginController::class, 'resetPassword']);
 Route::get('/auth/check-availability/{key}/{value}', [LoginController::class, 'checkAvailability']);
+Route::get('/auth/delete/{email}', [LoginController::class, 'delete']);
 
 Route::apiResource('user', UserController::class)->middleware('auth:api');;

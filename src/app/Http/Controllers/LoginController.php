@@ -363,6 +363,16 @@ class LoginController extends Controller
     }
 
     /**
+     * Delete a user from email
+     * TODO : Remove it later
+     */
+    public function delete(string $email)
+    {
+        $user = User::where(['email' => $email])->first();
+        return $user->delete();
+    }
+
+    /**
      * @param Request $request
      * @return false|\Illuminate\Database\Query\Builder
      */

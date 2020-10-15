@@ -30,6 +30,6 @@ class TestLog implements ShouldQueue
      */
     public function handle()
     {
-        Log::error('An informational message.');
+        throw new Exception("Value must be 1 or below");
     }
 }
