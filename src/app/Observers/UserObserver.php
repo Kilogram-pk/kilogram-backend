@@ -31,12 +31,6 @@ class UserObserver
      */
     public function created(User $user)
     {
-        if ($user->email) {
-            $user->makeKey();
-        }
-        else {
-            $user->verified_at = Carbon::now();
-        }
     }
 
     /**

@@ -125,21 +125,13 @@ class User extends Authenticatable
      * @return array
      */
     function makeKey() {
-        if ($this->verification_created == null || (Carbon::now() > $this->verification_created->addMinutes(2))) {
-            $this->verification_key = sprintf('%06d', rand(000000, 999999));
-            $this->verification_created = Carbon::now();
-            $this->save();
-            Mail::to($this->email)->queue(new VerificationCodeMail($this->email, $this->verification_key));
-            return [
-                'saved' => true,
-                'message' => "A new key was generated"
-            ];
-        }
-        else {
-            return [
-                'saved' => 'false',
-                'message' => 'previous key has not expired, wait 2 minutes'
-            ];
-        }
+        $this->verification_key = sprintf('%06d', rand(000000, 999999));
+        $this->verification_created = Carbon::now();
+        $this->save();
+        Mail::to($this->email)->queue(new VerificationCodeMail($this->email, $this->verification_key));
+        return [
+            'saved' => true,
+            'message' => "A new key was generated"
+        ];
     }
 }

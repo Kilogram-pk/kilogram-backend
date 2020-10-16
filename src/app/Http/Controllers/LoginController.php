@@ -25,13 +25,42 @@ class LoginController extends Controller
      */
     public function register(Request $request) {
         $request->validate([
-            'email' => 'required_without:phone|email|max:255|unique:users',
-            'phone' => 'required_without:email|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:255|unique:users',
+            'email' => 'required_without:phone|email|max:255',
+            'phone' => 'required_without:email|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:255',
         ]);
-        $user = new User;
+
+        // try to fetch user, if he is not verified yet, we let him in.
+        if ($request->input('email')) {
+            $userCheck = User::where(['email' => $request->input('email')])->first();
+        }
+        else {
+            $userCheck = User::where(['phone' => $request->input('phone')])->first();
+        }
+
+        // if user is there then set $user variable to $user
+        if ($userCheck && $userCheck->verified_at == null) {
+            $user = $userCheck;
+        }
+
+        // else validate from db
+        else {
+            $request->validate([
+                'email' => 'required_without:phone|email|max:255|unique:users',
+                'phone' => 'required_without:email|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:255|unique:users',
+            ]);
+            $user = new User;
+        }
         $user->email = $request->input('email') ?? null;
         $user->phone = $request->input('phone') ?? null;
         $user->save();
+
+        if ($user->email) {
+            $user->makeKey();
+        }
+        else {
+            $user->verified_at = Carbon::now();
+        }
+
         return response([
             'saved' => true,
             'message' => $user->email ? "A key has been sent to your email to verify" : "User created successfully"
@@ -342,7 +371,7 @@ class LoginController extends Controller
     public function checkAvailability(string $key, string $value) {
         if ($key == "phone" || $key == "email" || $key == "username") {
             $user = User::where([$key => $value])->first();
-            if ($user) {
+            if ($user && $user->verified_at) {
                 return response([
                     'success' => false,
                     'message' => 'Already in use'
