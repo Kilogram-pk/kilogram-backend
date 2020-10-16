@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ResetPasswordMail;
 use App\Models\User;
+use App\Rules\Unique_Username;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Http\JsonResponse;
@@ -79,7 +80,7 @@ class LoginController extends Controller
             'user' => 'required|min:6|max:255',
             'password' => 'required|min:6|max:255',
             'name' => 'required|min:6|max:255',
-            'username' => 'required|min:6|max:255|unique:users,username',
+            'username' => ['required', 'string', new Unique_Username()],
         ]);
         $user = User::where(['email' => $request->input('user')])->orWhere(['phone' => $request->input('user')])->first();
         // if user not found
